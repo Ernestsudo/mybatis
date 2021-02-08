@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.bjpowernode.dao.OrderDao">
+
+    <select id="selectOrderMessage" resultType="com.bjpowernode.daomain.OrderMessage">
+        select mybatis.`order`.id,mybatis.`order`.customName,mybatis.`order`.customAddress,mybatis.`order`.createTime,mybatis.`order`.totalPrice FROM  mybatis.`order` where  mybatis.`order`.customName like concat( '%' , #{name}, '%' )
+    </select>
+
+    <select id="selectOrderDetail" resultType="com.bjpowernode.daomain.OrderDetail">
+        select mybatis.orderdatail.id,mybatis.orderdatail.orderId,mybatis.orderdatail.productName,mybatis.orderdatail.productType,mybatis.orderdatail.price,mybatis.orderdatail.count FROM mybatis.orderdatail where orderid = #{orderId}
+    </select>
+
+
+    <insert id="insertOrderMessage">
+        insert into mybatis.`order` values (default,#{customName},#{customAddress},#{createTime},#{TotalPrice})
+    </insert>
+
+    <insert id="insertOrderDetail" >
+        insert into mybatis.orderdatail values(default,#{orderId},#{productName},#{productType},#{price},#{count})
+    </insert>
+
+    <delete id="deleteOrderMessage">
+        delete FROM mybatis.`order` where id = #{id}
+    </delete>
+
+    <delete id="deleteOrderDetail">
+        delete from mybatis.orderdatail where id = #{id}
+    </delete>
+</mapper>
